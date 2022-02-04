@@ -1,0 +1,412 @@
+package com.torry.emppack;
+public class Employee {
+    protected int empId;
+    protected String empName;
+    protected int sal;
+
+    public Employee(int empId, String empName, int sal) {   //Constructor
+        this.empId = empId;
+        this.empName = empName;
+        this.sal = sal;
+    }
+    public String getDetails(){
+        return(empId+" "+empName+" "+sal);
+    }
+    public int getSal(){
+        return sal;
+    }
+}
+
+
+//Employee.java
+
+
+
+
+package com.torry.emppack;
+public class Manager extends Employee{
+    private String deptName;
+    private int empcount;
+    //override method
+    public Manager(int empId, String empName, int sal,String deptName,int empcount) {
+        //constructor chaining,basr class constructor evoked within derived class constructor
+        //within super() method
+        super(empId, empName, sal);
+        this.deptName=deptName;
+        this.empcount=empcount;
+    }
+    public String getDetails() //override the function from the base class
+    {
+        return(super.getDetails()+" "+deptName+" "+empcount);
+    }
+    public String getDeptName(){
+        return deptName;
+    }
+    public int getEmpcount(){
+        return empcount;
+    }
+}
+
+//manager.java
+
+
+
+
+
+package com.torry.emppack;
+public class Programmer extends Employee{
+    private int noOfProject;
+    private String skillset;
+//override method
+    public Programmer(int empId, String empName, int sal,int noOfProject,String skillset) {
+        super(empId, empName, sal);
+        this.noOfProject=noOfProject;
+        this.skillset=skillset;
+    }
+
+    @Override
+    public String getDetails() {
+        return super.getDetails()+" "+noOfProject+" "+skillset;
+    }
+    public int getNoOfProject(){
+        return noOfProject;
+    }
+    public String getskillset(){
+        return skillset;
+    }
+}
+//Programmer.java
+
+
+package com.torry.taxpack;
+import com.torry.emppack.Manager;
+import com.torry.emppack.Employee;
+import com.torry.emppack.Programmer;
+public class Tax {
+    public static double calc_tax(Employee e)
+    {
+        //suppose the tax calculation is different for types of employees
+        //to identify the type we can use operator:instance of
+        if(e instanceof Manager)
+            return(e.getSal()*0.2);
+        else
+            if(e instanceof Programmer)
+                return(e.getSal()*0.1);
+            else
+                return (0);
+    }}
+
+//Tax.java
+
+
+//main
+import com.torry.emppack.Programmer;
+import com.torry.taxpack.Tax;
+public class Main{
+public static void main(String[] args){
+Employee employee1=new Employee(100,"Hari",10000);
+System.out.println(employee1.getDetails());
+Manager m1=new Manager(200,"Krishna",40000,"HR",5);
+        System.out.println(m1+" "+m1.calcNetSal());
+
+        Programmer p1=new Programmer(300,"Dilip",30000,3,"Java");
+        System.out.println(p1+" "+p1.calcNetSal());
+
+Employee e1=new Manager(201,"Ram",40000,"IT",5);
+System.out.println(e1.getDetails());
+
+
+Manager m2=(Manager)e1;
+System.out.println("Works for:" +m2.getDeptName()+"Department");
+        
+        Employee[] emparr=new Employee[4];
+        emparr[0]=new Manager(100,"Rounak",20000,"Finance",5);
+        emparr[1]=new Manager(200,"Ankit",40000,"IT",10);
+        emparr[2]=new Programmer(300,"Smriti",30000,3,"Java scripts");
+        emparr[3]=new Programmer(301,"Naroj",30000,2,"Java");
+        System.out.println("printing detals of employee");
+        for(Employee e:emparr)
+        {
+            System.out.println(e+ "tax paid:"+Tax.calc_tax(e));
+        }
+    }
+}
+_________________________________________________________________________________
+programmer
+package com.torry.emppack;
+public class Programmer extends Employee{
+    private int noOfProject;
+    private String skillset;
+//override method
+    public Programmer(int empId, String empName, int sal,int noOfProject,String skillset) {
+        super(empId, empName, sal);
+        this.noOfProject=noOfProject;
+        this.skillset=skillset;
+    }
+
+    @Override  //@ is annotation(piece of info passed to compiler
+    public String getDetails() {
+        return super.getDetails()+" "+noOfProject+" "+skillset;
+    }
+
+    @Override
+    public String toString() {
+        return "Programmer{" +
+                "empId=" + empId +
+                ", empName='" + empName + '\'' +
+                ", sal=" + sal +
+                ", noOfProject=" + noOfProject +
+                ", skillset='" + skillset + '\'' +
+                '}';
+    }
+    @Override
+    public double calcNetSal() {
+        return 15000;
+    }
+    public int getNoOfProject(){
+        return noOfProject;
+    }
+    public String getskillset(){
+        return skillset;
+    }
+}
+
+manager
+package com.torry.emppack;
+public class Programmer extends Employee{
+    private int noOfProject;
+    private String skillset;
+//override method
+    public Programmer(int empId, String empName, int sal,int noOfProject,String skillset) {
+        super(empId, empName, sal);
+        this.noOfProject=noOfProject;
+        this.skillset=skillset;
+    }
+
+    @Override  //@ is annotation(piece of info passed to compiler
+    public String getDetails() {
+        return super.getDetails()+" "+noOfProject+" "+skillset;
+    }
+
+    @Override
+    public String toString() {
+        return "Programmer{" +
+                "empId=" + empId +
+                ", empName='" + empName + '\'' +
+                ", sal=" + sal +
+                ", noOfProject=" + noOfProject +
+                ", skillset='" + skillset + '\'' +
+                '}';
+    }
+    @Override
+    public double calcNetSal() {
+        return 15000;
+    }
+    public int getNoOfProject(){
+        return noOfProject;
+    }
+    public String getskillset(){
+        return skillset;
+    }
+}
+
+Employee
+package com.torry.emppack;
+//an abstract class cannot instantiate objects
+public abstract class Employee {
+    protected int empId;
+    protected String empName;
+    protected int sal;
+
+    public Employee(int empId, String empName, int sal) {   //Constructor
+        this.empId = empId;
+        this.empName = empName;
+        this.sal = sal;
+    }
+    public String getDetails(){
+        return(empId+" "+empName+" "+sal);
+    }
+    //abstract method:no body,only declaration
+    public abstract double calcNetSal();
+    public int getSal(){
+        return sal;
+    }
+}
+
+
+main
+package com.torry.mainpack;
+import com.torry.emppack.Employee;
+import com.torry.emppack.Manager;
+import com.torry.emppack.Programmer;
+
+public class Main {
+    public static void main(String[] args) {
+        Manager m1=new Manager(200,"Krishna",40000,"HR",5);
+        System.out.println(m1+" "+m1.calcNetSal());
+
+        Programmer p1=new Programmer(300,"Dilip",30000,3,"Java");
+        System.out.println(p1+" "+p1.calcNetSal());
+
+        Employee[] emparr=new Employee[4];
+        emparr[0]=new Manager(100,"Rounak",20000,"Finance",5);
+        emparr[1]=new Manager(200,"Ankit",40000,"IT",10);
+        emparr[2]=new Programmer(300,"Smriti",30000,3,"Java scripts");
+        emparr[3]=new Programmer(301,"Naroj",30000,2,"Java");
+        System.out.println("printing detals of employee");
+        for(Employee e:emparr)
+        {
+            System.out.println(e+ "Net Salary:"+e.calcNetSal());
+        }
+    }
+}
+
+_____________________________________________________________________________
+New project interface
+main
+package com.torry.mainpack;
+import com.torry.pack1.Class1;
+public class Main {
+    public static void main(String[] args) {
+	Class1 ob=new Class1();
+    ob.m1();
+    ob.m4();
+    }
+}
+Class1
+package com.torry.pack1;
+public class Class1 implements Interface1,Interface2{
+    @Override
+    public void m1() {
+        System.out.println("In m1");
+    }
+    @Override
+    public void m2() {
+        System.out.println("In m2");
+    }
+    @Override
+    public void m3() {
+        System.out.println("In m3");
+    }
+    @Override
+    public void m4() {
+        System.out.println("In m4");
+        System.out.println("Count value: "+Interface2.count);}}
+    
+Interface1
+package com.torry.pack1;
+
+public interface Interface1 {
+    void m1();
+    void m2();
+    void m3();
+
+}
+
+Interface2
+package com.torry.pack1;
+
+public interface Interface2 {
+    //by default the variable is public static final variable
+    int count=10;
+    void m4();//public abstract method
+}
+____________________________________________________________________________
+car.java
+package com.torry.vpack;
+
+public class Car extends Vehicle{
+    private int maxSpeed;
+    private String type;
+
+public Car(int regNo,String model,int currSpeed,int maxSpeed,String type) {
+    super(regNo, model, currSpeed); //constructor chaining
+    this.maxSpeed=maxSpeed;
+    this.type = type;
+}
+    @Override
+    public int increSpeed(int n) {
+    if(currspeed+n<maxSpeed)
+        currspeed+=n;
+    else
+        currspeed=-1;
+        return (currspeed);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "maxSpeed=" + maxSpeed +
+                ", type='" + type + '\'' +
+                ", regNo=" + regNo +
+                ", model='" + model + '\'' +
+                ", currspeed=" + currspeed +
+                '}';
+    }
+}
+
+
+Vehicle.java
+package com.torry.vpack;
+
+public abstract class Vehicle implements Automobile{
+    protected int regNo;
+    protected String model;
+    protected int currspeed;
+
+    public Vehicle(int regNo,String model,int currSpeed) {
+        this.regNo=regNo;
+        this.model=model;
+        this.currspeed=currSpeed;
+    }
+    @Override
+    public String start() {
+        return "Vehicle Started!!!";
+    }
+    @Override
+    public abstract int increSpeed(int n) ;
+    @Override
+    public String stop() {
+        return "Vehicle stopped...";
+    }
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "regNo=" + regNo +
+                ", model='" + model + '\'' +
+                ", currspeed=" + currspeed +
+                '}';
+    }
+}
+
+Automobile.java
+package com.torry.vpack;
+public interface Automobile {
+    String start();
+    int increSpeed(int n);
+    String stop();
+
+}
+
+LongDrive.java
+package com.torry.mainpack;
+import com.torry.vpack.Automobile;
+import com.torry.vpack.Car;
+import com.torry.vpack.Vehicle;
+public class LongDrive {
+    public static void main(String[] args) {
+        Automobile car1=new Car(1927,"q3",40,120,"Sedan");
+        Vehicle car2=new Car(5096,"q3",40,120,"Sedan");
+        Car car3=new Car(7644,"q3",40,120,"Sedan");
+        System.out.println(car1.start());
+        int increvalue=car1.increSpeed(150);
+        if(increvalue==-1)
+        {
+            System.out.println("Alert!!!stop the car");
+        }
+        else
+            System.out.println("Enjoy your drive");
+        System.out.println(car1.stop());
+    }
+}
+_________________________________________________________________________________________________

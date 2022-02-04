@@ -1,0 +1,402 @@
+1. show databases
+2. use rounak
+3. db.createCollection('Rounak')
+
+
+4. Insert : 
+Syntax:     
+     db.collection_name.insert({​​​​​document}​​​​​)
+
+     For insertOne():
+     db.collection_name.insertOne( { <document> } )
+
+     For insertMany():
+     db.collection_name.insertMany( [ { <document1> }, { <document2> } ] )
+
+Example:
+db.user_profiles.insert ( [
+    {
+        Userid:"amy01",
+        Name:"Amy James",
+        Gender:"Female",
+        Location:"India",
+        Age:19,
+        University:"Delhi University"
+    },
+    {
+        Userid:"jimmy999",
+        Name:"Jim Watson",
+        From:"Canada",
+        Location:"Mexico",
+        Office: "Google"
+    },
+    {
+        Userid:"rachel_11",
+        Name:"Rachel Greene",
+        Location:"New Work",
+        PhoneNo:123456789,
+        University:"Vassar University",
+        Graduated:2014
+}
+] )
+
+5. Find: 
+
+Syntax:
+     db.collection_name.find( {query}, {projection} )
+Example:
+     db.user_profiles.find().pretty();
+
+Syntax:
+     db.collection_name.find( {​​​​​query}​​​​​, {​​​​​projection}​​​​​ )
+Example:
+     db.product_catalog.find( {​​​​​ publisher: "Dreamtech" }​​​​​ )
+
+db.product_catalog.find()
+
+db.product_catalog.find({​​​​}​​​​)
+
+db.product_catalog.find({​​​​}​​​​,{​​​​}​​​​)
+
+db.product_catalog.find({​​​​}​​​​,{​​​​_id:0}​​​​)
+
+Example:
+
+db.product_catalog.find(
+
+    {​​​​​ "categories.main":"electronics" }​​​​​
+
+)
+
+Example:
+
+db.product_catalog.find(
+
+    {​​​​​ colors: "black" }​​​​​,
+
+    {​​​​​ prodname: 1 }​​​​​
+)
+
+and Syntax:
+
+     db.collection_name.find(
+
+       {​​​​​ $and: [
+
+       {​​​​​ attribute1 : "value1" }​​​​​,
+
+       {​​​​​ attribute2 : "value2" }​​​​​
+
+     ]}​​​​​)
+
+or Syntax:
+    
+    db.collection_name.find(
+
+       {​​​​​ $or: [
+
+       {​​​​​ attribute1 : "value1" }​​​​​,
+
+       {​​​​​ attribute2 : "value2" }​​​​​
+
+     ]}​​​​​)
+
+Syntax:
+     db.collection_name.find(
+          { attribute1 : {$ne: "value1" } } )
+
+Syntax:
+
+     {​​​​​ field_name: {​​​​​ $all: [ "value1", "value2" ] }​​​​​
+
+db.product_catalog.find(
+    { colors : { $all : ["black", "silver"] } },
+    { _id: 0, prodname: 1 }
+)
+
+db.product_catalog.find({"categories.main":{$ne:"electronics"}},{prodname:1,_id:0})
+
+Question:
+=========
+
+The requirement states that Zoiva wants to retrieve Apple’s electronic products from their catalog to create a report on the inventory and sales.
+They also want to check if phones with black and silver colors with release years as 2017-2018 (both inclusive) and having price above 55000 rupees are available or not, as these phones are in maximum demand.
+
+Ans:
+====
+db.product_catalog.find({$and:[{manufacturer:"apple"},{colors:{$all:["black","silver"]}},{year_of_launch:{$in:[2017,2018]}},{price:{$gt:55000}}]});
+
+6. Update Syntax:
+     db.collection_name.update(
+       { attribute1 : "value1" },
+       { $set : { attribute : "newValue" } } )
+
+   UpdateMany syntax:
+     db.product_catalog.updateMany(
+     { attribute1 : "value1" },
+     { $set : { attribute : "newValue" } }
+      )
+    Increment Syntax:
+     db.collection_name.update( { $inc: { numericField:      <number> } } )
+
+
+rename
+db.product_catalog.update({ ISBN : 18407806},{ $rename: { price: "Rate"}})
+
+push
+(If the field does not exist, the $push operator creates the field and sets the value as an array with the element specified)
+Syntax:
+     db.collection_name.update( { $push: { arrayField: "newValue" } } )
+db.product_catalog.update({prodid:7000001}, { $push: { "colors": "blue" } } )
+
+ { prodid: 7000001  },
+   { $push: { colors: { $each: [ 'midnight blue', 'red' ] } } }
+)
+db.product_catalog.update({ISBN: 18407806}, { $inc: { price: -50 } } )
+
+
+ques1
+Consider the collection given below:
+
+{
+    prodid:200025, prodname:"MacBook Air", manufacturer:"apple", price:56000
+},
+{
+    prodid:200026, prodname:"MacBook Pro", manufacturer:"apple", price:90000
+}
+What would be the output of the below query?
+
+db.electronics.update(
+	{ prodid: 200026},
+	{ $push: { colors: "white" } }
+)
+No output, since field does not exist
+Error, since field does not exist
+Updates prodid 200026, adds color:"white" as a field
+Updates prodid 200026, adds color:["white"] as a field
+ans:d
+
+ques2
+Consider the following collection:
+
+{ _id: 1, item: "oven", price: 14000, quantity: 5 }
+{ _id: 2, item: "LCD", price: 48000, quantity: 10 }
+{ _id: 3, item: "refrigerator", price: 25000, quantity: 4 }
+What would be the output of the below query?
+
+db.electronics.update( 
+{item : "LCD" },     
+{ $inc : { quantity: -2} } 
+)
+ 
+
+Causes an error
+Updates the 'LCD' document, sets quantity to 8
+Updates the 'LCD' document, sets quantity to 12
+Adds a new quantity field to the 'LCD' document
+ans:b
+
+ques3
+Given the following documents in the electronics collection:
+
+{ _id: 1, item: "oven", price: 14000, quantity: 5 }
+{ _id: 2, item: "LCD", price: 48000, quantity: 10 }
+{ _id: 3, item: "refrigerator", price: 25000, quantity: 4 }
+{ _id: 4, item: "LCD", price: 56000, quantity: 3 }
+{ _id: 5, item: "LCD", price: 20000, quantity: 9 }
+What is the result of the below operation?
+
+db.electronics.update( 
+{item : "LCD", quantity : { $gte : 5 } },     
+{ $set : { HD : "full HD" }, $inc : { price : 8000 } } 
+)
+ 
+
+Updates all matching documents
+Updates only the first matching document
+Updates all matching documents, but ignores the 'HD' key
+Error, since no 'HD' key is found in any document
+
+ans:b
+
+
+db.user_profiles.update({UserId: "amy01"}, {$set: {University:"Anna University" , "Age":21, Siblings: ["Luke James","Anna James","Sharon James"]  } })
+
+db.product_catalog.update(
+   { prodid: 7000001  },
+   { $push: { colors: { $each: [ 'midnight blue', 'red' ] } } ,  $set: {prodname: "moto1"} }
+   
+)
+
+db.product_catalog.deleteOne( {prodname: 'Java for Dummies'} )
+
+db.product_catalog.deleteMany(
+
+    {​​​​​ price: {​​​​​ $lt : 1000 }​​​​​ }​​​​​ )
+
+
+Syntax:
+
+     db.collection_name.deleteMany( {​​​​​}​​​​​ )
+
+
+ques
+
+Consider the below employee_profiles collection:{​​​​​​ 
+	emp_name: 'Jim',
+	unit: 'ETA'
+}​​​​​​,
+{​​​​​​
+	emp_name: 'Jackson',
+	unit: 'ETA'
+}​​​​​​,
+{​​​​​​
+	emp_name: 'Amy',
+	unit: 'ADM'
+}​​​​​​,
+{​​​​​​
+	emp_name: 'Anna',
+	unit: 'ADM'
+}​​​​​​What would be the result of running the below querydb.employee_profiles.deleteOne(
+   {​​​​​​'unit': 'ETA'}​​​​​​
+)
+Only the first matching document is deleted
+All documents are deleted
+None of the documents are deleted
+Only Jim and Jackson are deleted
+
+ans:a
+
+db.user_profiles.deleteMany({ $and: [{Location:"Mexico"}, {Age: {$gt: 40}} ] })
+
+total number of products categorized as 'smartphones'
+db.product_catalog.count( { "categories.sub": "smartphones" })
+
+db.product_catalog.distinct( "manufacturer" )
+How would we write a query to provide a total price of all the products made by each manufacturer?
+
+$project is used to specify which fields are required for performing the aggregation.
+$group is used to group the fields by value and then perform some aggregation
+The aggregation to be performed is specified inside $group.
+In this case we will be using $sum to add the values of the price field
+If we wanted to retrieve a count of all the mobiles made by a particular manufacturer and also get the total price of all these mobiles, simply using
+
+db.product_catalog.aggregate( [
+    { $project: { _id: 0, manufacturer: 1, price: 1 } },
+    { $group: { _id: "$manufacturer", totalPrice: { $sum: "$price" } } }
+] )
+
+we are simply trying to filter documents such that we get a result of mobiles that are manufactured by lenovo.
+Syntax:
+
+     db.collection_name.aggregate(
+
+    {​​​​​ $match: {​​​​​ key1 : "value1"}​​​​​ }​​​​​ )
+db.product_catalog.aggregate( { $match: { manufacturer: "lenovo" } })
+
+Syntax:
+     db.collection_name.aggregate(
+    { $match: {$and: [{ key1 : "value1"}, {key2 : "value2" } ] } } )
+
+Example:
+db.product_catalog.aggregate(
+    { $match: {$and: [{ manufacturer: "lenovo" }, {price : {$lt:10000} } ] } } )
+
+db.product_catalog.aggregate({$match:{$and: [{manufacturer:"lenovo"}, {price:10000}]}})
+
+Example:
+db.product_catalog.aggregate( [
+    { $sort : { price: 1 } },
+    { $limit: 5},
+    { $out: "FiveCheapestMobiles"}
+] )
+
+Requirement
+Zoiva has millions of records in their product catalog. They want to find products based on price range. 
+Their search returns results but is very slow. 
+They want to return search results quickly to the users.
+Solution
+Zoiva needs to create index on the field based on which they are searching for products.
+Example:
+db.product_catalog.find(
+    { price: { $gte: 5000, $lte: 20000 } }
+).explain("executionStats")
+
+
+Example:
+
+db.product_catalog.createIndex({​​​​​price:-1}​​​​​)
+
+Syntax:
+
+     For ascending indexes:
+
+     db.collection_name.createIndex( {​​​​​ field_name : 1 }​​​​​ )
+
+     For descending indexes:
+
+     db.collection_name.createIndex( {​​​​​ field_name : -1 }​​​​​ )
+
+
+Syntax:
+
+     db.collection_name.createIndex( {​​​​​field1 : 1, field2: -1}​​​​​ )
+
+
+Example:
+
+db.product_catalog.createIndex(
+
+        {​​​​​ price:1, rating:-1 }​​​​​)
+
+
+Syntax:
+
+     db.collection_name.getIndexes()
+
+
+Syntax:
+
+     If you know the name of the index
+
+     db.collection_name.dropIndex( "index_name" )
+
+OR
+
+     For ascending indexes:
+
+     db.collection_name.drop_Index( {​​​​​ field_name : 1 }​​​​​ )
+
+OR
+
+     For descending indexes:
+
+     db.collection_name.drop_Index( {​​​​​ field_name : -1 }​​​​​ )  
+
+
+Syntax:
+
+     db.collection_name.dropIndexes()
+
+for (var i = 1; i <= 50; i++) {
+   db.js_tryout.insert( { _id : i } )
+}
+
+var data = db.js_tryout.find({_id: {$gte: 5, $lte:15}}).toArray()
+for (var i=0; i < data.length; i++){
+print("The ID is "+ data[i]._id)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

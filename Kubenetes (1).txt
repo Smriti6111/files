@@ -1,0 +1,126 @@
+Kubenetes
+
+ctrl+r -> search commands
+
+ls -lrth
+
+alias k="kubectl" -> for giving alias
+
+kubectl describe pod pod-name -> to see the ifo of pod 
+
+kubectl delete pod podname ->to delete a pod
+
+kubectl get pod --show-labels
+
+kubectl get pods -o=wide
+
+kubectl get pods -o=wide --sort-by="{.spec.nodeName}"
+
+kubectl delete pod pod-name -> to delete a pod
+
+kubectl get pods --field-selector=status.phase=Running -> to get only running pods
+
+kubectl delete pods –all -> To delete all pods in one go 
+
+API server - communicate b/w two diff application like an interface
+---------------------------------------------------------------------
+1.vi first-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+     env: dev
+     version: v1
+spec:
+  containers:
+  - name: my-nginx
+    image: nginx:latest
+    ports:
+     - containerPort: 80
+
+2.kubectl create -f first-pod.yaml  -> creating a pod
+
+3.kubectl get pods - shows pods
+
+------------------------------------------------------------------------
+
+hello-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+   name: hello-pod
+   labels:
+     version: v1
+     zones: prod
+spec:
+  containers:
+  - name: hello-pod
+    image: nigelpoulton/pluralsight-docker-ci:latest
+    ports:
+    - containerPort: 80
+---------------------------------------------------------------------------
+Deployment
+
+1.vi nginx-deployment.yaml 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+2.kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
+3.kubectl get deployment
+
+-----------------------------------------------------------------------------------------
+
+Taints and Tolerations
+
+1.kubectl taint nodes slave-node key1=value1:NoSchedule
+-node/slave-node tainted
+
+2.vi file1.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+   name: file1
+   labels:
+     version: v1
+     zones: prod
+spec:
+  containers:
+  - name: file1
+    image: nigelpoulton/pluralsight-docker-ci:latest
+    ports:
+    - containerPort: 80
+
+3.kubectl create -f file1.yaml
+
+4. kubectl get pods -o wide
+NAME                               READY   STATUS    RESTARTS       AGE    IP                NODE         NOMINATED NODE   READINESS GATES
+file1                              0/1     Pending   0              10s    <none>            <none>       <none>           <none>
+
+5.kubectl taint nodes slave-node key1=value1:NoSchedule-
+node/slave-node untainted
+
+6.kubectl get pods -o wide
+NAME                               READY   STATUS    RESTARTS       AGE    IP                NODE         NOMINATED NODE   READINESS GATES
+file1                              1/1     Running   0              39s    192.168.220.140   slave-node   <none>           <none>
+
+-----------------------------------------------------------------------------------------------------------------------------------------------

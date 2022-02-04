@@ -1,0 +1,98 @@
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>3.0.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>3.0.0</version>
+</dependency>
+(add in pom file)and run as->maven install
+
+creating a controller class in eg(com.example.restapi) as HelloWorldController.java
+(contents)
+package com.example.restapi;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.ApiOperation;
+
+@RestController
+@RequestMapping("/hello")
+public class HelloWorldController {
+      
+	@ApiOperation(value="say hello swagger",notes="this just say hello")
+	@GetMapping("/say")
+	public String sayHello() {
+		return "Hello Swagger";
+	}
+}
+
+creating a new class SwaggerConfig.java
+(contents)
+package com.example.restapi;
+
+import java.util.Collections;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig{
+	
+@Bean
+public Docket swaggerApiConfig(){
+return new Docket(DocumentationType.SWAGGER_2)
+		.select()
+		.paths(PathSelectors.any())
+		.apis(RequestHandlerSelectors.basePackage("com.example"))
+		.build()
+		.apiInfo(apiInfo());
+}
+
+private ApiInfo apiInfo() {
+	return new ApiInfo(
+			"Swagger API Example By Java TechBooster",
+			"API reference Example By Java TechBooster",
+			"1.0.0",
+			"Public API",
+			new Contact(
+					"Java TechBooster",
+					"https://www.youtube.com/channel/UCnn3VqIPxKOdUsyOCpZa4fw",
+					"restapi.gmail.com"),
+			"API License Open",
+			"https://www.youtube.com/channel/UCnn3VqIPxKOdUsyOCpZa4fw",
+			Collections.emptyList());
+			
+}
+}
+
+
+
+update and run as java application
+hit http://localhost:8080/swagger-ui.html#/ in browser
+refresh after giving api info in swaggerConfig
+Select get or anyone ->tryout->execute->it will give response body
+we can add more details from swagger by POST method
+
+hit this link present int swagger ui interface
+http://localhost:8080/v2/api-docs 
+this will give details of api in json format
+
+To make any field as required we can use apimodel property,in swagger interface ->models section that field will be shown 
+In this project i have added this property in CartItem.java
+

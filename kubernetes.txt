@@ -1,0 +1,126 @@
+ sudo apt-get update
+ sudo apt-get install docker.io
+ sudo usermod -aG docker $USER
+ sudo systemctl start docker
+ sudo systemctl enable docker
+ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+ sudo apt install curl
+ sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+ sudo apt-get install kubeadm kubelet kubectl
+ sudo apt-mark hold kubeadm kubelet kubectl
+ kubeadm version
+ sudo swapoff -a
+ sudo hostnamectl set-hostname master-node
+ sudo kubeadm init
+_____________
+sudo su
+kubeadm reset -f
+iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+
+systemctl daemon-reload
+systemctl restart docker
+swapoff -a
+systemctl start kubelet
+exit
+sudo kubeadm init
+___________________________
+
+ systemctl status kubelet
+ sudo apt-get update
+ sudo kubeadm init
+
+ systemctl restart kubelet
+ kubeadm reset
+ cd /etc/docker/
+ ls
+ pwd
+ vi daemon.json
+{
+"exec-opts": ["native.cgroupdriver=systemd"]
+}
+
+ sudo systemctl daemon-reload
+ sudo systemctl restart docker
+ systemctl restart kubelet
+ sudo kubeadm init
+ kubectl get nodes
+ kubectl cluster-info
+ mkdir -p $HOME/.kube
+ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+ sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+ kubectl get pods --all-namespaces
+ kubeadm token create --print-join-command
+ kubectl get nodes
+
+
+
+
+
+
+
+ cd /etc/kubernetes
+ ls
+ cat admin.conf(copy this from master)
+ kubeadm token create --print-join-command
+ kubectl get nodes
+ kubectl get pods --all-namespaces
+
+
+
+in slave
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config   after this
+cd /etc/kubernetes
+ls
+rmdir manifests/
+ mkdir -p $HOME/.kube
+cd $HOME/.kube
+ ls
+ vi config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+ kubectl get pods --all-namespaces
+ cd /home/ubuntu
+
+paste the copied token from master
+
+
+
+vi nginx-pod.yaml
+ kubectl create -f nginx-pod.yaml
+pod/nginx-pod created
+
+
+9 dec
+
+kubectl get pod --show-labels
+kubectl get pods -l status=online
+kubectl get pods -o=wide --sort-by="{​​​​​​.spec.nodeName}​​​​​​"
+kubectl delete pods kuardpod "kuard" deletedroot@ip-172-31-24-32:~# kubectl delete pods –all || To delete all pods in one go
+kubectl get pods -o=wide --sort-by="{​​​​​​.spec.nodeName}​​​​​​"
+kubectl get nodes --all-namespaceskubectl get pods -o=wide --sort-by="{.spec.nodeName}"kubectl get pod --show-labelskubectl delete pod <pod_name>kubectl get pods --field-selector=status.phase=Running
+Kubectl get nodes
+
+
+Kubectl get pods
+
+
+
+
+
+
+
+
+
+
+

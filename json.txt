@@ -1,0 +1,300 @@
+
+json.html
+<html>
+<body>
+Movie name:<span id="result1"></span><br>
+Main Lead:<span id="result2"></span><br>
+Released Year:<span id="result3"></span>
+</body>
+<script type= text/javascript>
+var movies = {
+"name":"Pirates of Carrebian and the curse of Black perl",
+"actor":"Johnny Depp",
+"release_year":"2003"
+};
+document.getElementById("result1").innerHTML = movies.name;
+document.getElementById("result2").innerHTML = movies.actor;
+document.getElementById("result3").innerHTML = movies.release_year;
+</script>
+</html>
+________________________
+json arrays
+<html>
+<body>
+Movie name:<span id="result1"></span><br>
+Main Lead:<span id="result2"></span><br>
+Released Year:<span id="result3"></span>
+</body>
+<script type= text/javascript>
+var movies = [{"name":"movie1","actor":"rohith","release_year":2025},
+{"name":"movie2","actor":"amith","release_year":2025},
+{"name":"movie3","actor":"manju","release_year":2025}];
+
+document.getElementById("result1").innerHTML = movies[0].name+" "+movies[1].name+" "+movies[2].name;
+document.getElementById("result2").innerHTML = movies[0].actor+" "+movies[1].actor+" "+movies[2].actor;
+</script>
+</html>
+____________________________
+<html>
+<body>
+Movie name:<span id="result1"></span><br>
+Main Lead:<span id="result2"></span><br>
+Released Year:<span id="result3"></span>
+</body>
+<body>
+<p id="res0"></p>
+<p id="res1"></p>
+<p id="res2"></p>
+</body>
+
+<script>
+    var movies = [
+                      {
+                            "name":"Pirates of Carrebian and the curse of Black perl",
+                            "actor":"Johnny Depp",
+                            "release_year":"2003"
+                      },
+                      {
+                            "name":"Lagaan",
+                            "actor":"Aamir",
+                            "release_year":"2001"
+                      },
+                      {
+                            "name":"The Shawshank Redemption",
+                            "actor":"Tim Robbins",
+                            "release_year":"1994"
+                      }
+               ];
+
+
+    for (i=0;i<3;i++){
+        document.getElementById("res"+i).innerHTML="Movie name :"+ movies[i].name +"; Release Year: "+ movies[i].release_year
+    }
+</script>
+________________________________
+<html>
+<body>
+Employee name:<span id="result1"></span><br>
+Street Address:<span id="result2"></span>
+Price of BMW:<span id="result3"></span>
+Topspeed of Mercedes:<span id="result4"></span>
+var employee = {
+"name":"Sherlock Holmes",
+"empNo": "221",
+"address":{
+"street":"221B Baker Street",
+"city":"London",
+"country":"England",
+"pin":12211
+}
+};
+var cars = [{
+"BMW": {
+"price": 800000,
+"topspeed": 250
+}
+},
+{
+"Mercedes": {
+"price": 900000,
+"topspeed": 230
+}
+},
+]
+document.getElementById("result1").innerHTML = employee.name;
+document.getElementById("result2").innerHTML = employee.address.street;
+document.getElementById("result3").innerHTML = cars[0].BMW.price;
+document.getElementById("result4").innerHTML = cars[1].Mercedes.topspeed;
+</body>
+</html>
+________________________________
+<html>
+    <script> 
+        var jsonData = {
+                        "unit": "MFG",
+                        "projects":{
+                                    "projectName": "Toyota",
+                                    "status":"completed"
+                                  }
+                        }
+
+        document.getElementById("result").innerHTML= ______________;
+    <script>
+    <p id="result"></p>
+</html>
+Fill in the blank to display progress of project "Toyota"?
+
+jsonData.projects.status  ans
+jsonData.status
+projects.status
+jsonData.projects[0].status
+______________________________
+<html>
+    <script> 
+        var jsonData = [
+                            {
+                                 "unit": "MFG",
+                                 "projects":{
+                                                "projectName": "Toyota",
+                                                "status":"completed"
+                                            }
+                            },
+                            {
+                                 "unit":"Finacle",
+                                 "projects":{
+                                                "projectName":"icici bank",
+                                                "status" : "In-progress"
+                                            }
+                            }
+                       ]  
+
+        document.getElementById("result").innerHTML= ____________;
+    </script>
+    <p id="result"></p>
+</html>
+Fill in the blank to display the progress status of "icici bank"?
+
+jsonData[1].status
+jsonData[1].projects.status                ans
+jsonData.projects.status
+None of the options
+_________________________________________________
+Problem Statement:
+Building a library system - "ALL-DC library" which uses JSON in order to store the data.
+
+Create a JSON object that contains below data:
+
+1. Name of Employee
+
+2. Books
+
+    2.1. Name of each book
+
+    2.2. Due date of each book
+
+    2.3. DC name where book was issued
+
+Now create an Array of the above JSON data, for two or more employees
+
+var employee = [{
+    "name":"Sherlock Holmes","Books":{"Bookname": "pavan",
+                                        "Due date":"12/01/2021",
+                                        "DC":"12333"},
+    "name":"Jason","Books":{"Bookname": "Wings of fire",
+                                        "Due date":"23/01/2021",
+                                        "DC":"11113"},
+    "name":"Chintan","Books":{"Bookname": "Java",
+                                        "Due date":"23/05/2021",
+                                        "DC":"177777"},
+
+
+}];
+_________________________________________
+https://www.w3schools.com/xml/ajax_intro.asp
+______________________________________
+data.json
+[{
+  "movie": "Batman part-1",
+  "name": "Batman Begins",
+  "genre": "Action",
+  "credits": {
+    "director": "Christopher Nolan",
+    "Music": "hans zimmer",
+    "year_released": "2005"
+  },
+  "languages": ["English", "Hindi", "French ", "German "]
+}, {
+  "movie": "Batman part-2",
+  "name": "The Dark Knight",
+  "genre": "Action",
+  "credits": {
+    "director": "Christopher Nolan",
+    "music": "Hans Zimmer",
+    "year_released": "2008"
+  }
+}]
+
+
+chintan.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>First Ajax html</title>
+
+    <style>
+            table {
+                    font-family: arial, sans-serif;
+                    border-collapse: collapse;
+                width: 100%;
+                  }
+
+            td, th {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                   }
+
+            tr:nth-child(even) {
+                        background-color: #dddddd;
+                       }
+        </style>
+
+    <script type="text/javascript">
+            function testUser(){
+                var XHR;
+
+                if (window.XMLHttpRequest){
+                    //For Mozilla and Non Microsoft Browsers
+                    XHR=new XMLHttpRequest();
+                }
+                    else{
+                    alert("XMLHttpRquest object not supported in your browser");
+                    }
+
+                XHR.open("GET", "data.json" ,true);
+                XHR.onreadystatechange = function(){
+                                displayMessage(XHR);
+                             };
+                XHR.send();
+            }
+
+            function displayMessage(XHR){
+                if(XHR.readyState==4){
+                    if(XHR.status==200){
+                        var d=JSON.parse(XHR.responseText);
+
+                        document.getElementById("result").innerHTML="<td>"+d[0].name+"</td>"+"<td>"+d[0].genre+"</td>"+"<td>"+d[0].credits.director+"</td>"+"<td>"+d[0].credits.year_released+"</td>";
+                                        document.getElementById("result1").innerHTML="<td>"+d[1].name+"</td>"+"<td>"+d[1].genre+"</td>"+"<td>"+d[1].credits.director+"</td>"+"<td>"+d[1].credits.year_released+"</td>";
+                    }
+                    else{
+                        document.getElementId("error").innerHTML=XHR.statusText;
+                        document.getElementById("error").style.display="block";
+                    }
+                }
+            }
+        </script>
+</head>
+<body>
+<h1>Movie DataBase</h1>
+
+<form>
+    <input type="button" value="Get List" onClick="testUser()" /> <span id="error"></span>
+</form>
+
+<table>
+    <tr>
+        <th>Movie Name</th>
+        <th>Genre</th>
+        <th>Directed By</th>
+        <th>Year(Release)</th>
+    </tr>
+
+    <tr id="result">
+    </tr>
+
+    <tr id="result1">
+    </tr>
+</table>
+</body>
+</html>
+__________________________________________

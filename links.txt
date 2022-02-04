@@ -1,0 +1,512 @@
++19032824485
+
+f1c21c32e0b3e792f54d85627e3e9b68
+https://app.swaggerhub.com/apis-docs/mbdarshan2857/PropertyStoreAPI/1.0
+https://github.com/Darshanmarakall1999/FinalDevopsProject.git
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+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         git token
+
+https://www.javatpoint.com/spring-boot-tutorial
+REST API SPRING BOOT PROJECT
+Steps:
+1)download jar file with dependencies
+[Spring web(to handle http requests),h2 database(by default provided by spring boot application)and jdbc]from spring initializer
+
+2)import that in ecllipse
+
+3)RestapiApplication.java is termed as @SpringbootApplication which is home class.
+-RestapiApplication is main application or entry point as main method is present here
+
+4)creating a class(CartItem.java) in com.example.restapi
+-CartItem.java will have id,name,price,constructor,getters and settres(pojo class created)
+
+5)creating a class(CartController.java) in com.example.restapi.
+-CartController.java will be controlling entire transaction for this cart.
+-CartController.java will be the entry point for all rest related transactions.
+-To make this class as restcontroller ,an annotation called @RestController will be used.
+-To fetch controller data,we have to map some url pattern, for that @RequestMapping is used. 
+ eg.RequestMapping("/cart")         url/cart/add/cartdetails
+
+
+-First method is getCartDetails with annotation GetMapping with the url pattern. eg.@GetMapping("/get")
+
+-Second method is addCartDetails with annotation PostMapping with the url pattern. eg.@PostMapping("/add")
+ To add,cartitem details is needed which is in pojo class.In method parameter CartItem's object is passed.
+ And since this is request parameter,@RequestBody is used.
+
+-Third method is updateCartDetails with annotation PutMapping with the url pattern. eg.@PutMapping("/update")
+ To update,cartitem details is needed which is in pojo class.In method parameter CartItem's object is passed.
+ And since this is request parameter,@RequestBody is used.
+
+-Fourth method is deleteCartDetails with annotation DeleteMapping with the url pattern. eg.@DeleteMapping("/delete/{id}")
+ For delete we only need the unique id.So in the method parameter id will be pased with @PathVariable.
+
+6)To connect to db we need data object layer.creating a class(CartRepository.java) in com.example.restapi.
+
+-In order to make this class as data access object we use @Repository  so that we will be allowed to use various springjdbc related components.
+-We will use spring jdbc provided class which is jdbctemplate
+-To use various method of the class jdbctemplate we have to create object for this.In java basic way to create object is by using new keyword
+-But for this spring provides @Autowired which creates the object
+-@Autowired will autowire the object of jdbctemplate with CartRepository
+
+-First method is getCartDetails with no parameter.give sql query
+-Second method is addCartDetails.In method parameter CartItem's object is passed. give sql query
+-Third method is updateCartDetails.In method parameter CartItem's object is passed. give sql query
+-Fourth method is deleteCartDetails.in the method parameter id will be pased.give sql query
+
+7)It is not suggested to directly call dao component from controller.So in b/w of these two there is service layer.
+-creating a class(CartService.java) in com.example.restapi.@Service is used
+-We need to call all the repository methods from service class.For this wee need object of CartRepository by using @Autowired
+-copy all methods created in repository class in service class.Remove mapping.Remove RequestBody and PathVariable.return by using object of CartRepository.
+
+8)we want to use object of CartService in CartController so @Autowired will be used.return by using object of CartService.
+
+9)To setup a db layer application.properties is used for configuration changes.
+
+10)hit localhost:8080/h2-console    (a console will be provided by springboot a/c to the configuration)
+-after giving password ,ui for h2 database will be ready
+
+11)CREATE table carts(id serial,name varchar(255),price numeric(15));
+insert into carts(id,name,price)values(2,'s1',12);
+select * from carts;
+
+12)Now in postman create four sample test scenarios
+
+
+
+-GET   http://localhost:8080/cart/get/
+ 
+-POST  http://localhost:8080/cart/add/           
+In headers section key will be Content-Type,value will be application/json
+In body,raw,{"id":"2","name":"s2","price":"13"}
+
+-PUT   http://localhost:8080/cart/update/   
+
+-DEL   http://localhost:8080/cart/delete/2
+
+logger
+caching
+expectoriented programming
+
+
+ 
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+$("#submit").click(function(){
+var owner=$("#owner").val();
+var password=$("#password").val();
+var cardno=$("#cardno").val();
+
+if(owner=='' || password=='' ||cardno=='' )
+{
+swal({
+  title: "Fields Empty!",
+  text: "Please check the missing field!",
+  icon: "warning",
+  button: "OK!",
+});
+}else{
+swal({
+  title: "Successfully done",
+  icon: "success",
+});
+</script>
+<a href="">Confirm</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://sweetalert.js.org/guides/#installation
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Form validation</title>
+</head>
+<body>
+<div class="container" style="padding-top:100px">
+<form>
+    <input type="text" id="name" placeholder="Name"class="form-control"><br>
+    <input type="text" id="email" placeholder="Email"class="form-control"><br>
+    <input type="text" id="phone" placeholder="Phone"class="form-control"><br>
+    <button type="button" id="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+$("#submit").click(function(){
+var name=$("#name").val();
+var email=$("#email").val();
+var phone=$("#phone").val();
+if(name == '' || email == '' || phone == '' ){
+swal({
+  title: "Fields Empty!",
+  text: "Please check the missing field!",
+  icon: "warning",
+  button: "OK!",
+});
+}else{
+  swal({
+  title: "Successfully done!",
+  text: "You clicked the button!",
+  icon: "success",
+  button: "Aww yiss!",
+});
+}
+});
+</script>
+</body>
+</html>
+_____________
+https://getbootstrap.com/docs/4.0/getting-started/introduction/#starter-template
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+https://github.com/onclickwebdesign/productdetail
+
+
+
+code1
+import json
+
+
+
+"""def lambda_handler(event, context):
+# TODO implement
+return {
+'statusCode': 200,
+'body': json.dumps('Hello from Prasanna T P!')
+}
+def lambda_handler(event, context):
+return{
+'statusCode':200,
+'body':json.dumps('Hello World')
+}"""
+
+
+
+def lambda_handler(event, context):
+
+#message = 'Hello, {} {} from {}'.format(event['first_name'], event['last_name'], event['city'])
+
+    return {
+# 'statusCode' : 200,
+# 'body':json.dumps(message)
+'body':json.dumps("smriti")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+code2 
+import json
+"""def lambda_handler(event, context):
+# TODO implement
+return {
+'statusCode': 200,
+'body': json.dumps('Hello from Prasanna T P!')
+}
+def lambda_handler(event, context):
+return{
+'statusCode':200,
+'body':json.dumps('Hello World')
+}"""
+
+def lambda_handler(event, context):
+
+    message = 'Hello, {} {} from {}'.format(event['first_name'], event['last_name'], event['city'])
+
+    return {
+# 'statusCode' : 200,
+ 'body':json.dumps(message)
+#'body':json.dumps("smriti")
+}
+
+
+{
+"first_name": "Prasanna",
+"last_name": "Premkumar",
+"city": "Madurai",
+"mobile": "9597161471"
+}
+
+
+
+
+
+
+db.product_catalog.update({ISBN: 1234567}, { $inc: { price: -150 } } )
+
+
+
+db.students.updateOne(
+   { _id: 1 },
+   { $rename: { 'nickname': 'alias', 'cell': 'mobile' } }
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exam links
+
+git(global information tracker)Linus Torvalds/3rd generation/2005/C/google acquired GitHub for $7.5 billion in June 2018
+____
+https://www.onlineinterviewquestions.com/git-mcq/
+https://www.courseya.com/git-mcq/
+https://stackhowto.com/git-mcqs-multiple-choice-questions-and-answers-part-2/
+https://www.interviewmocks.com/git-mcq/
+
+Docker(Solomon Hykes/2013/
+_______
+YAML stands for yet another markup language
+CNM stands for Container Networking Model
+docker registery use port 5000
+
+https://www.onlineinterviewquestions.com/docker-mcq/
+https://mcqpoint.com/mcq/docker/
+https://www.courseya.com/docker-mcq/
+https://www.interviewmocks.com/docker-mcq/
+
+kubernetes(Go/Google/
+______________
+https://www.courseya.com/kubernetes-mcq/
+https://www.interviewmocks.com/kubernetes-mcq/
+https://www.onlineinterviewquestions.com/kubernetes-mcq/
+
+jenkins(Kohsuke Kawaguchi/2005   
+https://www.javatpoint.com/jenkins-interview-questions       theory
+https://www.courseya.com/jenkins-mcq/
+https://www.allindiaexams.in/engineering/cse/jenkins-mcq-quiz/2
+
+ansible(python/Python 2.6 version or the higher/feb 2012/Michael Dehaan
+https://www.courseya.com/ansible-mcq/
+https://letsfindcourse.com/devops-mcq-questions/ansible-mcq-questions-and-answers
+
+
+https://app.testdome.com/cert/dc9453ddbcfb4c4d918a944b28755c45    docker certificate
+https://app.testdome.com/cert/aba65c47b9fb45c8acc78af2d1ed7f87    kubernetes certificate
+
+springboot
+https://www.tutorialspoint.com/spring/spring_online_quiz.htm
+https://stackhowto.com/spring-mcqs-multiple-choice-questions-and-answers-part-1/
+
+https://www.soapui.org/downloads/soapui/
+
+https://github.com/rounakbhadrarb/training.git
+
+https://github.com/rohith1999/Agile_Model.git
+
+https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop
+
+testing
+https://docs.google.com/document/d/1z2nERxpEWHw2DQY8EVXNIHTrNbzjX00J/edit?usp=sharing&ouid=105743605639178937876&rtpof=true&sd=true
+
+
+1. Write a Java program to print 'Hello' on screen and then print your name on a separate line.   
+Hello
+Alexandra Abramov
+ 
+2. Write a Java program to print the sum of two numbers 
+Test Data:
+74 + 36
+Expected Output :
+110
+ 
+3. Write a Java program to divide two numbers and print on the screen 
+Test Data :
+50/3
+Expected Output :
+16
+ 4. Write a Java program to print the result of the following operations.  Test Data:
+a. -5 + 8 * 6
+b. (55+9) % 9
+c. 20 + -3*5 / 8
+d. 5 + 15 / 3 * 2 - 8 % 3
+Expected Output :
+43
+1
+19
+13
+ 5. Write a Java program that takes two numbers as input and display the product of two numbers.  
+Test Data:
+Input first number: 25
+Input second number: 5
+Expected Output :
+25 x 5 = 125
+6. Write a Java program to print the sum (addition), multiply, subtract, divide and remainder of two numbers.  
+Test Data:
+Input first number: 125
+Input second number: 24
+Expected Output :
+125 + 24 = 149
+125 - 24 = 101
+125 x 24 = 3000
+125 / 24 = 5
+125 mod 24 = 5
+7. Write a Java program that takes a number as input and prints its multiplication table upto 10.  
+Test Data:
+Input a number: 8
+Expected Output :
+8 x 1 = 8
+8 x 2 = 16
+8 x 3 = 24
+...
+8 x 10 = 80
+                                                                                                                                                                             8. Write a Java program to display the following pattern. 
+Sample Pattern :
+   J    a   v     v  a                                                  
+   J   a a   v   v  a a                                                 
+J  J  aaaaa   V V  aaaaa                                                
+ JJ  a     a   V  a     a
+ 
+ 9. Write a Java program to compute the specified expressions and print the output.  
+Test Data:
+((25.5 * 3.5 - 3.5 * 3.5) / (40.5 - 4.5))
+Expected Output
+2.138888888888889
+ 
+10. Write a Java program to compute a specified formula. 
+Specified Formula :
+4.0 * (1 - (1.0/3) + (1.0/5) - (1.0/7) + (1.0/9) - (1.0/11))
+Expected Output
+2.9760461760461765
+ 
+11. Write a Java program to print the area and perimeter of a circle.  Test Data:
+Radius = 7.5
+Expected Output
+Perimeter is = 47.12388980384689
+Area is = 176.71458676442586
+ 
+12. Write a Java program that takes three numbers as input to calculate and print the average of the numbers.  
+13. Write a Java program to print the area and perimeter of a rectangle.  
+Test Data:
+Width = 5.5 Height = 8.5
+Expected Output
+Area is 5.6 * 8.5 = 47.60
+Perimeter is 2 * (5.6 + 8.5) = 28.20
+
+
+
+
+
+Instance state:
+Running -- That means you are able to access machine
+Stopped -- Log off--- ( do aws charge at that time also? ) -- Why -- because you are using the computing power
+Terminated -- delteing from your env
+Reboot -- Resatrting -- We refreshed -- Reboot
+Shutdown -- running --
+
+Steps to create EC2:
+
+
+
+Select region
+Select AMI (OS)
+Instance type : Memory Size, Processors, Performance
+Storage
+Tags (Metadata)
+Security group
+Key pair
+
+
+
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
+
+ssh -i ubuntuRSA.pem ec2-user@
+
+/var/www/html/
+
+:wq!
+
+Ec2 machine -- html
+
+
+Usergrup-- 5 users -- working --
+
+S3 Bucket 
+
+
+S3 bucket== theory 
+
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
+
+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
+
+
+ami,ebs,ami
+putty gen
+putty key genrator
+
+putty configuration
+
+cloudwatch
+biling is availble for n virginia
+sns
+
+

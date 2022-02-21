@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Login-Signup Switch</title>
+  
+    <link rel='stylesheet' type='text/css' href='style.css'>
+    <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    
+</head>
+<body>
+
+    <div class="container">
+        <div class="switch">
+            <div class="login"  onclick="tab1();">Login</div>
+            <div class="signup" onclick="tab2();">Signup</div>
+        </div>
+
+        <div class="outer">
+            <form id="form">
+               <div id="page">
+                   <label>Login Form</label>
+                   <div class="element">
+                       <input type="text" placeholder="Username">
+                       <span class="fas fa-user"></span>
+                   </div>
+                   <div class="element">
+                    <input type="password" placeholder="Password">
+                    <span class="fas fa-lock"></span>
+                </div>
+                <button id="btn">Login</button>
+               </div>
+
+
+               <div id="page">
+                <label>Signup Form</label>
+                <div class="element">
+                    <input type="text" placeholder="Email Address">
+                    <span class="fas fa-envelope"></span>
+                </div>
+                <div class="element">
+                    <input type="text" placeholder="Username">
+                    <span class="fas fa-user"></span>
+                </div>
+                <div class="element">
+                 <input type="password" placeholder="Password">
+                 <span class="fas fa-lock"></span>
+             </div>
+             <button id="btn">Signup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='script.js'></script>
+</body>
+</html>
